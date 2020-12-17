@@ -1,0 +1,33 @@
+/**
+ * ★symfonyでapiを実行する。
+ */
+/**
+ * @Route("/", name="api")
+ */
+public function api()
+{
+	$json = array(
+	    "data1" => "データ1" ,
+	    "data2" => array(
+	        "data2-1" => "データ2-1",
+	        "data2-2" => "データ2-2",
+	    ),
+	);
+	$json = json_encode($json);
+	return new JsonResponse($json);
+}
+
+
+/**
+ * ★laravelでapiをキックする。
+ */
+public function index()
+{
+	$url = "http://127.0.0.1/api/";
+	$https = new Client(['base_uri' => $url]);
+	$path = '';
+	$options = ['http_errors' => false];
+	$response = $https->request('GET' ,$path ,$options);
+	$response_body = $response->getBody()->getContents();
+	$result_data_ary = json_decode($response_body ,true);
+}
