@@ -1,0 +1,31 @@
+// 指定したデータをセッションから取得する
+// キーが存在していない場合に返すデフォルト値を第2引数に指定できる
+$value = $request->session()->get('key’);
+$value = $request->session()->get('key', 'default’);
+$value = $request->session()->get('key', function () {
+    return 'default';
+});
+
+// セッション中の全データを取得する
+$data = $request->session()->all();
+
+// 指定したデータがセッションに存在するかを調べる
+if ($request->session()->exists('key')) {
+    // 存在する
+}
+if ($request->session()->has('key')) {
+    // 存在しnullではない
+}
+
+// セッションへデータを保存する
+$request->session()->put('key', 'value');
+$request->session()->put(['key1' => 'value1', 'key2' => ‘value2']);
+
+// 指定したデータをセッションから取得後、そのデータを削除する
+$value = $request->session()->pull('key', 'default’);
+
+// 指定したデータをセッションから削除する
+$request->session()->forget('key');
+
+// セッションから全データを削除する
+$request->session()->flush();
